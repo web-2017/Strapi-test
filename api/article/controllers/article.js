@@ -5,11 +5,16 @@
  * to customize this controller
  */
 
+const { sanitizeEntity } = require("strapi-utils");
+
 module.exports = {
   find: async (ctx) => {
-    // console.log(ctx.request.body);
+    console.log(22, ctx.req);
     const article = await strapi.query("article").find();
-    console.log(article);
-    return article;
+    // return article;
+    const entity = await strapi.services.article.find();
+    // console.log("entity", entity);
+    // console.log("article", article);
+    return sanitizeEntity(entity, { model: strapi.models.article });
   },
 };

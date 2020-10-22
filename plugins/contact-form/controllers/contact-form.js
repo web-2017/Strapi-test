@@ -1,4 +1,4 @@
-'use strict';
+"use strict";
 
 /**
  * contact-form.js controller
@@ -7,7 +7,6 @@
  */
 
 module.exports = {
-
   /**
    * Default action.
    *
@@ -19,21 +18,24 @@ module.exports = {
 
     // Send 200 `ok`
     ctx.send({
-      message: 'ok'
+      message: "ok",
     });
   },
 
   postMessage: async (ctx) => {
-    const data = ctx.request.body
+    const data = ctx.request.body;
 
-    if(!data.name || !data.email || !data.message) {
-      return ctx.badRequest('All fields must be supplied')
+    if (!data.name || !data.email || !data.message) {
+      return ctx.badRequest("All fields must be supplied");
     }
-    const result = await strapi.entityService.create({data},{ model: "plugins::contact-form.message"});
+    const result = await strapi.entityService.create(
+      { data },
+      { model: "plugins::contact-form.message" }
+    );
     // ctx.send({
     //   message: 'PostMessage: Hello there',
     // });
 
-    return result
-  }
+    return result;
+  },
 };
