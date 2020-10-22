@@ -1,9 +1,9 @@
 'use strict';
 
 /**
- * wysiwyg.js controller
+ * import-content.js controller
  *
- * @description: A set of functions called "actions" of the `wysiwyg` plugin.
+ * @description: A set of functions called "actions" of the `import-content` plugin.
  */
 
 module.exports = {

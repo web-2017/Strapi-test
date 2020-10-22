@@ -1,15 +1,22 @@
 {
-  "name": "strapi-plugin-wysiwyg",
+  "name": "strapi-plugin-import-content",
   "version": "0.0.0",
   "description": "This is the description of the plugin.",
   "strapi": {
-    "name": "wysiwyg",
+    "name": "import-content",
     "icon": "plug",
-    "description": "Description of wysiwyg plugin."
+    "description": "Description of import-content plugin."
   },
   "dependencies": {
-    "@ckeditor/ckeditor5-build-classic": "^23.0.0",
-    "@ckeditor/ckeditor5-react": "^2.1.0"
+    "content-type-parser": "1.0.2",
+    "csv-parse": "4.8.2",
+    "get-urls": "9.2.0",
+    "lodash": "^4.17.20",
+    "moment": "^2.29.1",
+    "request": "^2.88.2",
+    "rss-parser": "3.7.3",
+    "simple-statistics": "7.0.7",
+    "striptags": "3.1.1"
   },
   "author": {
     "name": "A Strapi developer",
