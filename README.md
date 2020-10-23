@@ -16,6 +16,7 @@ or
 
 ### Plugin Folders and Files Architecture
 
+```
 plugin/
 └─── admin/ # Contains the plugin's front-end
 | └─── src/ # Source code directory
@@ -40,3 +41,4 @@ plugin/
 └─── middlewares/ # Contains the plugin's middlewares
 └─── models/ # Contains the plugin's API models
 └─── services/ # Contains the plugin's API services
+```

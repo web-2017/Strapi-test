@@ -3,7 +3,7 @@
     {
       "method": "GET",
       "path": "/",
-      "handler": "wysiwyg.index",
+      "handler": "import-content.index",
       "config": {
         "policies": []
       }
