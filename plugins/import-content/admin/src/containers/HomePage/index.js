@@ -3,6 +3,9 @@ import { request } from "strapi-helper-plugin";
 import PropTypes from "prop-types";
 import pluginId from "../../pluginId";
 import UploadFileForm from "../../components/UploadFileForm";
+import ExternalUrlForm from "../../components/ExternalUrlForm";
+import RawInputForm from "../../components/RawInputForm";
+import MappingTable from "../../components/MappingTable";
 
 import {
   HeaderNav,
@@ -13,9 +16,6 @@ import Row from "../../components/Row";
 import Block from "../../components/Block";
 import { Select, Label } from "@buffetjs/core";
 import { get, has, isEmpty, pickBy, set } from "lodash";
-
-import ExternalUrlForm from "../../components/ExternalUrlForm";
-import RawInputForm from "../../components/RawInputForm";
 
 const getUrl = (to) =>
   to ? `/plugins/${pluginId}/${to}` : `/plugins/${pluginId}`;
@@ -35,6 +35,21 @@ class HomePage extends Component {
     analyzing: false,
     analysis: null,
     selectedContentType: "",
+    fieldMapping: {},
+  };
+
+  getTargetModel = () => {
+    const { models } = this.state;
+    if (!models) return null;
+    return models.find((model) => model.uid === this.state.selectedContentType);
+  };
+
+  setFieldMapping = (fieldMapping) => {
+    this.setState({ fieldMapping });
+  };
+
+  selectImportDest = (selectedContentType) => {
+    this.setState({ selectedContentType });
   };
 
   componentDidMount() {
@@ -47,14 +62,6 @@ class HomePage extends Component {
       });
     });
   }
-
-  selectImportDest = (selectedContentType) => {
-    this.setState({ selectedContentType });
-  };
-
-  selectImportSource = (importSource) => {
-    this.setState({ importSource });
-  };
 
   getModels = async () => {
     this.setState({ loading: true });
@@ -85,6 +92,10 @@ class HomePage extends Component {
     return [];
   };
 
+  selectImportSource = (importSource) => {
+    this.setState({ importSource });
+  };
+
   onRequestAnalysis = async (analysisConfig) => {
     this.analysisConfig = analysisConfig;
     this.setState({ analyzing: true }, async () => {
@@ -99,7 +110,6 @@ class HomePage extends Component {
         });
       } catch (e) {
         this.setState({ analyzing: false }, () => {
-          strapi.notification.error(`Analyze Failed, try again`);
           strapi.notification.error(`${e}`);
         });
       }
@@ -178,6 +188,15 @@ class HomePage extends Component {
             </Row>
           </Block>
         </div>
+        {this.state.analysis && (
+          <Row className="row">
+            <MappingTable
+              analysis={this.state.analysis}
+              targetModel={this.getTargetModel()}
+              onChange={this.setFieldMapping}
+            />
+          </Row>
+        )}
       </div>
     );
   }
