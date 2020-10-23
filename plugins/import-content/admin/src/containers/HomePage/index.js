@@ -14,6 +14,9 @@ import Block from "../../components/Block";
 import { Select, Label } from "@buffetjs/core";
 import { get, has, isEmpty, pickBy, set } from "lodash";
 
+import ExternalUrlForm from "../../components/ExternalUrlForm";
+import RawInputForm from "../../components/RawInputForm";
+
 const getUrl = (to) =>
   to ? `/plugins/${pluginId}/${to}` : `/plugins/${pluginId}`;
 
@@ -153,10 +156,26 @@ class HomePage extends Component {
                 />
               </div>
             </Row>
-            <UploadFileForm
-              onRequestAnalysis={this.onRequestAnalysis}
-              loadingAnalysis={this.state.analyzing}
-            />
+            <Row>
+              {this.state.importSource === "upload" && (
+                <UploadFileForm
+                  onRequestAnalysis={this.onRequestAnalysis}
+                  loadingAnalysis={this.state.analyzing}
+                />
+              )}
+              {this.state.importSource === "url" && (
+                <ExternalUrlForm
+                  onRequestAnalysis={this.onRequestAnalysis}
+                  loadingAnalysis={this.state.analyzing}
+                />
+              )}
+              {this.state.importSource === "raw" && (
+                <RawInputForm
+                  onRequestAnalysis={this.onRequestAnalysis}
+                  loadingAnalysis={this.state.analyzing}
+                />
+              )}
+            </Row>
           </Block>
         </div>
       </div>

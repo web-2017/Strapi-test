@@ -1,4 +1,4 @@
-'use strict';
+"use strict";
 
 /**
  * import-content.js controller
@@ -7,7 +7,6 @@
  */
 
 module.exports = {
-
   /**
    * Default action.
    *
@@ -19,7 +18,19 @@ module.exports = {
 
     // Send 200 `ok`
     ctx.send({
-      message: 'ok'
+      message: "ok",
     });
-  }
+  },
+
+  preAnalyzeImportFile: async (ctx) => {
+    const services = strapi.plugins["import-content"].services;
+    try {
+      const data = await services["importcontent"].preAnalyzeImportFile(ctx);
+      ctx.send(data);
+    } catch (error) {
+      console.log(error);
+      ctx.response.status = 406;
+      ctx.response.message = "could not parse: " + error;
+    }
+  },
 };

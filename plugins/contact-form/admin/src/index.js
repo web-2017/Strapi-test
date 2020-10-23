@@ -34,7 +34,7 @@ export default (strapi) => {
           icon,
           label: {
             id: `${pluginId}.plugin.name`,
-            defaultMessage: name + "ddd",
+            defaultMessage: name,
           },
           name,
           permissions: [
